@@ -34,7 +34,7 @@ elseif ($statusCode == 5) {
     </head>
  
 <body>
-  <h1>Login now</h1>
+  <h1>Cisco Captive Portal Login</h1>
         
   <form action="<?php echo $switch_url; ?>" method="post">
     <?php if ($statusMessage) echo "<p>{$statusMessage}</p>"; ?>
