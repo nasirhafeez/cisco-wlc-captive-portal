@@ -38,6 +38,10 @@ elseif ($statusCode == 5) {
         
   <form action="<?php echo $switch_url; ?>" method="post">
     <?php if ($statusMessage) echo "<p>{$statusMessage}</p>"; ?>
+    <label for="email">Username</label>
+    <input type="text" name="username" required/>
+    <label for="password">Password</label> 
+    <input type="password" name="password" required/>
     <input type="submit" value="Log in" />
     <input type="hidden" name="buttonClicked" size="16" maxlength="15" value="4">
   </form>
