@@ -30,61 +30,17 @@ elseif ($statusCode == 5) {
         <meta http-equiv="Pragma" content="no-cache">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        
         <title>Web Authentication</title>
-
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/fonts.css">
-        <link rel="stylesheet" href="css/style.css">
     </head>
  
-    <body>
+<body>
+  <h1>Login now</h1>
         
-        <div class="head">
-            <h1 class="center-text white">Login now</h1>
-        </div>
-        
-        <form action="<?php echo $switch_url; ?>" method="post" id="login-form">
-            
-            <div class="social">
-              <h4>Connect with</h4>
-              <ul>
-                <li> 
-                <a href="" class="facebook">
-                  <span class="fa fa-facebook"></span>
-                </a>
-                </li>
-                <li>
-                  <a href="" class="twitter">
-                    <span class="fa fa-twitter"></span>
-                  </a>
-                </li>
-                <li>
-                  <a href="" class="google-plus">
-                    <span class="fa fa-google-plus"></span>
-                  </a>
-                </li>
-              </ul>
-             </div>
+  <form action="<?php echo $switch_url; ?>" method="post">
+    <?php if ($statusMessage) echo "<p>{$statusMessage}</p>"; ?>
+    <input type="submit" value="Log in" />
+    <input type="hidden" name="buttonClicked" size="16" maxlength="15" value="4">
+  </form>
 
-             <div class="divider">
-               <span>or</span>
-             </div>
-
-            <div class="input-field">
-                <?php if ($statusMessage) echo "<p class=\"alert\"><i class=\"fa fa-warning\"></i> {$statusMessage}</p>"; ?>
-                
-                <label for="email">Email</label>
-                <input type="email" name="username" required="email" />
-                <label for="password">Password</label> 
-                <input type="password" name="password" required/>
-                <input type="submit" value="Log in" />
-
-                <input type="hidden" name="buttonClicked" size="16" maxlength="15" value="4">
-
-                <p class="text-p">Not signed up yet? <a href="#">Sign up</a></p>
-            </div>
-        </form>
-        
-    </body>
+</body>
 </html> 
