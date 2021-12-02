@@ -128,7 +128,7 @@ if (isset($_POST['apisubmit'])) {
         $json = json_decode($response, true);
         if ($json['Success'] == 1) {
             $barCodeSuccess = 1;
-            echo "code approved";
+            header("Location: auth.php");
         } else {
             echo "Sorry, your code was not approved";
         }
