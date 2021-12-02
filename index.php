@@ -2,20 +2,27 @@
 
 session_start();
 
+require __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/../");
+$dotenv->load();
+
 $switch_url = '';
 $client_mac = '';
 $statusCode = '';
 
+if($_GET) {
+    $_SESSION['switch_url'] = $_GET['switch_url'];
+    $_SESSION['ap_mac'] = $_GET['ap_mac'];
+    $_SESSION['client_mac'] = $_GET['client_mac'];
+    $_SESSION['wlan'] = $_GET['wlan'];
+    $_SESSION['redirect'] = $_GET['redirect'];
+    $_SESSION['statusCode'] = $_GET['statusCode'];
+}
+
+$_SESSION["user_type"] = "new";
 $barCodeSuccess = 0;
 
-/*
-$switch_url = $_GET['switch_url'];
-$ap_mac = $_GET['ap_mac'];
-$client_mac = $_GET['client_mac'];
-$wlan = $_GET['wlan'];
-$redirect = $_GET['redirect'];
-$statusCode = $_GET['statusCode'];
-*/
 if ($statusCode == 1) {
     $statusMessage = "You are already logged in.";
 }
@@ -33,6 +40,58 @@ elseif ($statusCode == 5) {
 } else {
     $statusMessage = '';
 }
+
+$host_ip = $_SERVER['HOST_IP'];
+$db_user = $_SERVER['DB_USER'];
+$db_pass = $_SERVER['DB_PASS'];
+$db_name = $_SERVER['DB_NAME'];
+
+$con = mysqli_connect($host_ip, $db_user, $db_pass, $db_name);
+
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to SQL: " . mysqli_connect_error();
+}
+
+$result = mysqli_query($con, "SELECT * FROM `users` WHERE mac='$_SESSION[client_mac]'");
+
+if ($result->num_rows >= 1) {
+    $row=mysqli_fetch_array($result);
+
+    $last_updated = $row[2];
+
+    $date1 = DateTime::createFromFormat('Y-m-d H:i:s', $last_updated);
+
+    mysqli_close($con);
+
+    $current_date = date("Y-m-d H:i:s");
+    $date2 = DateTime::createFromFormat('Y-m-d H:i:s', $current_date);
+
+    $interval = date_diff($date1, $date2);
+    $interval_days = $interval->days;
+
+    if($interval_days < 90) {
+        $_SESSION["user_type"] = "repeat_recent";
+        header("Location: auth.php");
+    }
+    else {
+        $_SESSION["user_type"] = "repeat_old";
+    }
+}
+else {
+    mysqli_close($con);
+}
+
+/*
+Table schema
+
+mysqli_query($con, "
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mac` varchar(45) NOT NULL,
+  `last_updated` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+)");
+*/
 
 if (isset($_POST['apisubmit'])) {
     $barcode = $_POST['barcode'];
@@ -91,10 +150,7 @@ if (isset($_POST['apisubmit'])) {
         <script type="text/javascript" src="assets/zepto.min.js"></script>
     </head>
 <body>
-<!--        <form action="--><?php //echo $_SERVER["PHP_SELF"];?><!--" method="post">-->
-<!--            <input type="text" name="barcode" required/>-->
-<!--            <input type="submit" name="apisubmit" value="API Test" />-->
-<!--        </form>-->
+
     <svg display="none" width="0" height="0" preserveaspectratio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
             <symbol id="icon-wifi" viewbox="128 128 768 768">
