@@ -7,10 +7,6 @@ require __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->load();
 
-//$switch_url = '';
-//$client_mac = '';
-//$statusCode = '';
-
 if($_GET) {
     $_SESSION['switch_url'] = $_GET['switch_url'];
     $_SESSION['ap_mac'] = $_GET['ap_mac'];

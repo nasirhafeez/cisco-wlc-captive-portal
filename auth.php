@@ -74,7 +74,7 @@ mysqli_close($con2);
 <body>
 
 <form action="<?php echo $switch_url; ?>" id="loginForm" method="post" style="display:none">
-    <?php if ($statusMessage) echo "<p>{$statusMessage}</p>"; ?>
+<!--    --><?php //if ($statusMessage) echo "<p>{$statusMessage}</p>"; ?>
     <input type="text" name="username" value="<?php echo $client_mac; ?>" type="hidden"/>
     <input type="password" name="password" value="<?php echo $client_mac; ?>" type="hidden"/>
     <input name="buttonClicked" size="16" maxlength="15" value="4" type="hidden">
