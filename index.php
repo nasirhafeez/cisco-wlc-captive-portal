@@ -7,9 +7,9 @@ require __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->load();
 
-$switch_url = '';
-$client_mac = '';
-$statusCode = '';
+//$switch_url = '';
+//$client_mac = '';
+//$statusCode = '';
 
 if($_GET) {
     $_SESSION['switch_url'] = $_GET['switch_url'];
@@ -18,27 +18,8 @@ if($_GET) {
     $_SESSION['wlan'] = $_GET['wlan'];
     $_SESSION['redirect'] = $_GET['redirect'];
     $_SESSION['statusCode'] = $_GET['statusCode'];
-}
 
-$_SESSION["user_type"] = "new";
-$barCodeSuccess = 0;
-
-if ($statusCode == 1) {
-    $statusMessage = "You are already logged in.";
-}
-elseif ($statusCode == 2) {
-    $statusMessage = "You are not configured to authenticate against this web portal.";
-}
-elseif ($statusCode == 3) {
-    $statusMessage = "The email address specified cannot be used at this time. Perhaps the username is already logged into the system?";
-}
-elseif ($statusCode == 4) {
-    $statusMessage = "This account has been excluded. Please contact the administrator.";
-}
-elseif ($statusCode == 5) {
-    $statusMessage = "Invalid email or password. Please try again.";
-} else {
-    $statusMessage = '';
+    $_SESSION["user_type"] = "new";
 }
 
 $host_ip = $_SERVER['HOST_IP'];
@@ -59,10 +40,9 @@ if ($result->num_rows >= 1) {
 
     $last_updated = $row[2];
 
-    $date1 = DateTime::createFromFormat('Y-m-d H:i:s', $last_updated);
-
     mysqli_close($con);
 
+    $date1 = DateTime::createFromFormat('Y-m-d H:i:s', $last_updated);
     $current_date = date("Y-m-d H:i:s");
     $date2 = DateTime::createFromFormat('Y-m-d H:i:s', $current_date);
 
@@ -127,7 +107,6 @@ if (isset($_POST['apisubmit'])) {
     if ($response !== false) {
         $json = json_decode($response, true);
         if ($json['Success'] == 1) {
-            $barCodeSuccess = 1;
             header("Location: auth.php");
         } else {
             echo "Sorry, your code was not approved";
