@@ -7,6 +7,8 @@ require __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->load();
 
+$barcodeFailure = 0;
+
 if($_GET) {
     $_SESSION['switch_url'] = $_GET['switch_url'];
     $_SESSION['ap_mac'] = $_GET['ap_mac'];
@@ -16,7 +18,6 @@ if($_GET) {
     $_SESSION['statusCode'] = $_GET['statusCode'];
 
     $_SESSION["user_type"] = "new";
-    $barcodeFailure = 0;
 }
 
 $host_ip = $_SERVER['HOST_IP'];
@@ -106,7 +107,7 @@ if (isset($_POST['apisubmit'])) {
         if ($json['Success'] == 1) {
             header("Location: auth.php");
         } else {
-            echo "Sorry, your code was not approved";
+            $barcodeFailure = 1;
         }
     }
     else {
