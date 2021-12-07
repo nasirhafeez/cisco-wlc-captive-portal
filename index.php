@@ -47,7 +47,7 @@ if ($result->num_rows >= 1) {
     $interval = date_diff($date1, $date2);
     $interval_days = $interval->days;
 
-    if($interval_days < 1) {
+    if($interval_days < 2) {
         $_SESSION["user_type"] = "repeat_recent";
         header("Location: auth.php");
     }
