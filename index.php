@@ -16,6 +16,7 @@ if($_GET) {
     $_SESSION['statusCode'] = $_GET['statusCode'];
 
     $_SESSION["user_type"] = "new";
+    $barcodeFailure = 0;
 }
 
 $host_ip = $_SERVER['HOST_IP'];
@@ -160,7 +161,12 @@ if (isset($_POST['apisubmit'])) {
                 <p class="terms">
                     By signing in to Equinox WiFi, you agree to the <span id="terms">terms of use</span>
                 </p>
+                <?php
+                if ($barcodeFailure == 1) { ?>
                 <p id="error-message">*Please enter a correct barcode id</p>
+                <?php
+                }
+                ?>
             </section>
             <button id="submitBtn" name="apisubmit" type="submit">Sign In</button>
         </form>

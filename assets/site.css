@@ -291,7 +291,7 @@ p.terms {
     font-size: .55em;
     font-weight: 700;
     text-transform: uppercase;
-    visibility: hidden;
+    /*visibility: hidden;*/
 }
 
 form button {
