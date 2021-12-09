@@ -207,139 +207,132 @@ if (isset($_POST['apisubmit'])) {
         </div>
     </section>
 
-<!--    <script>-->
-<!--        Zepto(function ($) {-->
-<!---->
-<!--            function IsValid() {-->
-<!--                var barcode = $("#barcodeId").val();-->
-<!--                if (barcode.length == 0 || barcode == "undefined") {-->
-<!--                    $('#barcodeId, .input-group-addon').addClass('input-error');-->
-<!--                    $('#error-message').html('*Please enter a correct barcode id');-->
-<!--                    $('#error-message').css('visibility', 'visible');-->
-<!--                    return false;-->
-<!--                }-->
-<!--                else {-->
-<!--                    $('#barcodeId, .input-group-addon').removeClass('input-error');-->
-<!--                    $('#error-message').css('visibility', 'hidden');-->
-<!--                    return true;-->
-<!--                }-->
-<!--            }-->
-<!--            function loadAction() {-->
-<!--                var url = window.location.href;-->
-<!--                var args = {};-->
-<!--                var query = location.search.substring(1);-->
-<!--                var pairs = query.split("&");-->
-<!--                var i, pos, argname, value;-->
-<!---->
-<!--                for (i = 0; i < pairs.length; i++) {-->
-<!--                    pos = pairs[i].indexOf('=');-->
-<!--                    if (pos === -1) continue;-->
-<!--                    argname = pairs[i].substring(0, pos);-->
-<!--                    value = pairs[i].substring(pos + 1);-->
-<!--                    args[argname] = decodeURIComponent(value);-->
-<!--                }-->
-<!--                document.forms[0].action = args.switch_url;-->
-<!--            }-->
-<!---->
-<!--            function submitAction() {-->
-<!--                var link = document.location.href;-->
-<!--                var searchString = "redirect=";-->
-<!--                var equalIndex = link.indexOf(searchString);-->
-<!--                var redirectUrl = "";-->
-<!---->
-<!--                if (document.forms[0].action == "") {-->
-<!--                    var url = window.location.href;-->
-<!--                    var args = new Object();-->
-<!--                    var query = location.search.substring(1);-->
-<!--                    var pairs = query.split("&");-->
-<!--                    for (var i = 0; i < pairs.length; i++) {-->
-<!--                        var pos = pairs[i].indexOf('=');-->
-<!--                        if (pos == -1) continue;-->
-<!--                        var argname = pairs[i].substring(0, pos);-->
-<!--                        var value = pairs[i].substring(pos + 1);-->
-<!--                        args[argname] = unescape(value);-->
-<!--                    }-->
-<!--                    document.forms[0].action = args.switch_url;-->
-<!--                }-->
-<!--                if (equalIndex >= 0) {-->
-<!--                    equalIndex += searchString.length;-->
-<!--                    redirectUrl = "";-->
-<!--                    redirectUrl += link.substring(equalIndex);-->
-<!--                }-->
-<!--                if (redirectUrl.length > 255)-->
-<!--                    redirectUrl = redirectUrl.substring(0, 255);-->
-<!--                document.forms[0].redirect_url.value = redirectUrl;-->
-<!--                document.forms[0].buttonClicked.value = 4;-->
-<!--                document.forms[0].submit();-->
-<!--            }-->
-<!---->
-<!--            // $('#myform').submit(function (e) {-->
-<!--            //     if (!IsValid())-->
-<!--            //         return false;-->
-<!--            //     e.preventDefault();-->
-<!--            //     $('#submitBtn').html('Loading...');-->
-<!--            //-->
-<!--            //     function hide_error_message() {-->
-<!--            //         $('#barcodeId, .input-group-addon').removeClass('input-error');-->
-<!--            //         $('#error-message').css('visibility', 'hidden');-->
-<!--            //     }-->
-<!--            //-->
-<!--            //     function show_error_message(s) {-->
-<!--            //         if (!s || s.match(/(found|exist)/)) {-->
-<!--            //             s = 'We couldn\'t find that membership. Please try again.';-->
-<!--            //         }-->
-<!--            //         $('#barcodeId, .input-group-addon').addClass('input-error');-->
-<!--            //         $('#error-message').text(s).css('visibility', 'visible');-->
-<!--            //     }-->
-<!--            //-->
-<!--            //     var form = $(this).serializeArray();-->
-<!--            //     //var redirectUrl = $("input[name='redirect_url']").val();-->
-<!--            //     // console.log('request:', form);-->
-<!--            //     $.ajax({-->
-<!--            //         type: 'POST',-->
-<!--            //         url: 'https://wifi.equinox.com/api/login',-->
-<!--            //         data: form,-->
-<!--            //         dataType: 'json',-->
-<!--            //         success: function (data) {-->
-<!--            //             if (data['Success']) {-->
-<!--            //                 hide_error_message();-->
-<!--            //                 //window.location.replace(redirectUrl);-->
-<!--            //                 submitAction();-->
-<!--            //             } else {-->
-<!--            //                 show_error_message(data['Message']);-->
-<!--            //             }-->
-<!--            //         },-->
-<!--            //         error: function (xhr, type) {-->
-<!--            //             show_error_message('An unknown error occurred. Please try again.');-->
-<!--            //         },-->
-<!--            //         complete: function (xhr, status) {-->
-<!--            //             $('#submitBtn').html('Sign In');-->
-<!--            //         }-->
-<!--            //     });-->
-<!--            // });-->
-<!--            //-->
-<!--            // $('#submitBtn').on('click touch', function (e) {-->
-<!--            //     e.preventDefault();-->
-<!--            //     $('#myform').submit();-->
-<!--            // });-->
-<!---->
-<!--            $('#terms').on('click touch', function (e) {-->
-<!--                $('#main').toggle();-->
-<!--                $('#aup').toggle();-->
-<!--            });-->
-<!---->
-<!--            $('.icon-close').on('click touch', function (e) {-->
-<!--                $('#aup').toggle();-->
-<!--                $('#main').toggle();-->
-<!--            });-->
-<!---->
-<!--            //        $('a.icon-info').on('click touch', function (e) {-->
-<!--            //            $(this).toggleClass('clicked');-->
-<!--            //        });-->
-<!---->
-<!--            loadAction();-->
-<!--        });-->
-<!--    </script>-->
+    <script>
+        Zepto(function ($) {
+
+            // function IsValid() {
+            //     var barcode = $("#barcodeId").val();
+            //     if (barcode.length == 0 || barcode == "undefined") {
+            //         $('#barcodeId, .input-group-addon').addClass('input-error');
+            //         $('#error-message').html('*Please enter a correct barcode id');
+            //         $('#error-message').css('visibility', 'visible');
+            //         return false;
+            //     }
+            //     else {
+            //         $('#barcodeId, .input-group-addon').removeClass('input-error');
+            //         $('#error-message').css('visibility', 'hidden');
+            //         return true;
+            //     }
+            // }
+            // function loadAction() {
+            //     var url = window.location.href;
+            //     var args = {};
+            //     var query = location.search.substring(1);
+            //     var pairs = query.split("&");
+            //     var i, pos, argname, value;
+            //
+            //     for (i = 0; i < pairs.length; i++) {
+            //         pos = pairs[i].indexOf('=');
+            //         if (pos === -1) continue;
+            //         argname = pairs[i].substring(0, pos);
+            //         value = pairs[i].substring(pos + 1);
+            //         args[argname] = decodeURIComponent(value);
+            //     }
+            //     document.forms[0].action = args.switch_url;
+            // }
+
+            // function submitAction() {
+            //     var link = document.location.href;
+            //     var searchString = "redirect=";
+            //     var equalIndex = link.indexOf(searchString);
+            //     var redirectUrl = "";
+            //
+            //     if (document.forms[0].action == "") {
+            //         var url = window.location.href;
+            //         var args = new Object();
+            //         var query = location.search.substring(1);
+            //         var pairs = query.split("&");
+            //         for (var i = 0; i < pairs.length; i++) {
+            //             var pos = pairs[i].indexOf('=');
+            //             if (pos == -1) continue;
+            //             var argname = pairs[i].substring(0, pos);
+            //             var value = pairs[i].substring(pos + 1);
+            //             args[argname] = unescape(value);
+            //         }
+            //         document.forms[0].action = args.switch_url;
+            //     }
+            //     if (equalIndex >= 0) {
+            //         equalIndex += searchString.length;
+            //         redirectUrl = "";
+            //         redirectUrl += link.substring(equalIndex);
+            //     }
+            //     if (redirectUrl.length > 255)
+            //         redirectUrl = redirectUrl.substring(0, 255);
+            //     document.forms[0].redirect_url.value = redirectUrl;
+            //     document.forms[0].buttonClicked.value = 4;
+            //     document.forms[0].submit();
+            // }
+
+            // $('#myform').submit(function (e) {
+            //     if (!IsValid())
+            //         return false;
+            //     e.preventDefault();
+            //     $('#submitBtn').html('Loading...');
+            //
+            //     function hide_error_message() {
+            //         $('#barcodeId, .input-group-addon').removeClass('input-error');
+            //         $('#error-message').css('visibility', 'hidden');
+            //     }
+            //
+            //     function show_error_message(s) {
+            //         if (!s || s.match(/(found|exist)/)) {
+            //             s = 'We couldn\'t find that membership. Please try again.';
+            //         }
+            //         $('#barcodeId, .input-group-addon').addClass('input-error');
+            //         $('#error-message').text(s).css('visibility', 'visible');
+            //     }
+            //
+            //     var form = $(this).serializeArray();
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: 'https://wifi.equinox.com/api/login',
+            //         data: form,
+            //         dataType: 'json',
+            //         success: function (data) {
+            //             if (data['Success']) {
+            //                 hide_error_message();
+            //                 submitAction();
+            //             } else {
+            //                 show_error_message(data['Message']);
+            //             }
+            //         },
+            //         error: function (xhr, type) {
+            //             show_error_message('An unknown error occurred. Please try again.');
+            //         },
+            //         complete: function (xhr, status) {
+            //             $('#submitBtn').html('Sign In');
+            //         }
+            //     });
+            // });
+
+            // $('#submitBtn').on('click touch', function (e) {
+            //     e.preventDefault();
+            //     $('#myform').submit();
+            // });
+
+            $('#terms').on('click touch', function (e) {
+                $('#main').toggle();
+                $('#aup').toggle();
+            });
+
+            $('.icon-close').on('click touch', function (e) {
+                $('#aup').toggle();
+                $('#main').toggle();
+            });
+
+            // loadAction();
+        });
+    </script>
 
 </body>
 </html> 
